@@ -61,6 +61,7 @@ const clearAllItems = () => {
   CheckUI();
 };
 
+//* Remove the filter field and clear button when no item exists:
 const CheckUI = () => {
   const item = document.querySelectorAll("li");
 
@@ -75,7 +76,7 @@ const CheckUI = () => {
   return;
 };
 
-// Event Listeners:
+//* Event Listeners:
 itemForm.addEventListener("submit", addItem);
 itemList.addEventListener("click", removeItem);
 clearButton.addEventListener("click", clearAllItems);

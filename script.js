@@ -4,6 +4,13 @@ const itemList = document.getElementById("item-list");
 const clearButton = document.getElementById("clear");
 const filterItem = document.getElementById("filter");
 
+const displayItems = () => {
+  const itemsFromStorage = getItemsFromStorage();
+  itemsFromStorage.forEach((item) => addItemToDOM(item));
+
+  CheckUI();
+};
+
 // * ADD ITEMS:
 const onAddItemSubmit = (e) => {
   e.preventDefault();
@@ -26,31 +33,6 @@ const onAddItemSubmit = (e) => {
   itemInput.value = "";
 };
 
-const addItemToDOM = (item) => {
-  // create list Item:
-  const li = document.createElement("li");
-  li.appendChild(document.createTextNode(item));
-
-  const button = createButton("remove-item btn-link text-red");
-  li.appendChild(button);
-
-  itemList.appendChild(li);
-};
-
-const addItemToStorage = (item) => {
-  let itemsFromStorage;
-
-  if (localStorage.getItem("items") === null) {
-    itemsFromStorage = [];
-  } else {
-    itemsFromStorage = JSON.parse(localStorage.getItem("items"));
-  }
-
-  itemsFromStorage.push(item);
-
-  localStorage.setItem("items", JSON.stringify(itemsFromStorage));
-};
-
 const createButton = (classes) => {
   const button = document.createElement("button");
   button.className = classes;
@@ -63,6 +45,39 @@ const createIcon = (classes) => {
   const icon = document.createElement("i");
   icon.className = classes;
   return icon;
+};
+
+const addItemToDOM = (item) => {
+  // create list Item:
+  const li = document.createElement("li");
+  li.appendChild(document.createTextNode(item));
+
+  const button = createButton("remove-item btn-link text-red");
+  li.appendChild(button);
+
+  itemList.appendChild(li);
+};
+
+const addItemToStorage = (item) => {
+  const itemsFromStorage = getItemsFromStorage();
+
+  // Add new item to array
+  itemsFromStorage.push(item);
+
+  // Convert to JSON string and set to local storage
+  localStorage.setItem("items", JSON.stringify(itemsFromStorage));
+};
+
+const getItemsFromStorage = () => {
+  let itemsFromStorage;
+
+  if (localStorage.getItem("items") === null) {
+    itemsFromStorage = [];
+  } else {
+    itemsFromStorage = JSON.parse(localStorage.getItem("items"));
+  }
+
+  return itemsFromStorage;
 };
 
 // * REMOVE ITEMS:
@@ -115,10 +130,16 @@ const filterItems = (e) => {
   });
 };
 
-//* Event Listeners:
-itemForm.addEventListener("submit", onAddItemSubmit);
-itemList.addEventListener("click", removeItem);
-clearButton.addEventListener("click", clearAllItems);
-filterItem.addEventListener("input", filterItems);
+//! Initialze app:
+const init = () => {
+  //* Event Listeners:
+  itemForm.addEventListener("submit", onAddItemSubmit);
+  itemList.addEventListener("click", removeItem);
+  clearButton.addEventListener("click", clearAllItems);
+  filterItem.addEventListener("input", filterItems);
+  document.addEventListener("DOMContentLoaded", displayItems);
 
-CheckUI();
+  CheckUI();
+};
+
+init();

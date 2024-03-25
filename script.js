@@ -3,6 +3,8 @@ const itemInput = document.getElementById("item-input");
 const itemList = document.getElementById("item-list");
 const clearButton = document.getElementById("clear");
 const filterItem = document.getElementById("filter");
+const formBtn = itemForm.querySelector("button");
+let isEditMode = false;
 
 const displayItems = () => {
   const itemsFromStorage = getItemsFromStorage();
@@ -17,9 +19,25 @@ const onAddItemSubmit = (e) => {
   const newItem = itemInput.value;
 
   // Validate Input:
+  const errorMessage = document.querySelector(".error-message");
+
   if (newItem === "") {
-    alert("Please add an item");
+    // alert("Please add an item");
+    itemInput.style.borderColor = "#ff2200";
+    itemInput.style.marginBottom = "0";
+    errorMessage.style.display = "flex";
     return;
+  } else {
+    itemInput.style.borderColor = "#ccc";
+    itemInput.style.marginBottom = "20px";
+    errorMessage.style.display = "none";
+  }
+
+  if (isEditMode) {
+    const itemToEdit = itemList.querySelector(".edit-mode");
+    removeItemFromStorage(itemToEdit.textContent);
+    itemToEdit.classList.remove("edit-mode");
+    itemToEdit.remove();
   }
 
   // Create item DOM element
@@ -83,7 +101,22 @@ const getItemsFromStorage = () => {
 const onClickItem = (e) => {
   if (e.target.parentElement.classList.contains("remove-item")) {
     removeItem(e.target.parentElement.parentElement);
+  } else {
+    setItemToEdit(e.target);
   }
+};
+
+const setItemToEdit = (item) => {
+  isEditMode = true;
+
+  document
+    .querySelectorAll("li")
+    .forEach((i) => i.classList.remove("edit-mode"));
+
+  item.classList.add("edit-mode");
+  formBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Update Item';
+  formBtn.style.backgroundColor = "#8cd632";
+  itemInput.value = item.textContent;
 };
 
 // * REMOVE ITEMS:
@@ -131,6 +164,10 @@ const CheckUI = () => {
     filterItem.style.display = "block";
     clearButton.style.display = "block";
   }
+
+  formBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Add Item';
+  formBtn.style.backgroundColor = "#333";
+  itemInput.value = "";
 
   return;
 };

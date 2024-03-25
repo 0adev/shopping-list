@@ -37,6 +37,10 @@ header h1 {
   padding: 20px;
 }
 
+.edit-mode {
+  color: #ccc;
+}
+
 /* Form & Input */
 .form-input {
   width: 100%;
@@ -46,6 +50,20 @@ header h1 {
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
+}
+
+.error-message {
+  color: #ff2200;
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin: 5px 0 20px;
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.error-message > i {
+  font-size: 1rem;
 }
 
 .form-input-filter {

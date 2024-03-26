@@ -26,7 +26,6 @@ const onAddItemSubmit = (e) => {
     itemInput.style.borderColor = "#ff2200";
     itemInput.style.marginBottom = "0";
     errorMessage.style.display = "flex";
-    return;
   } else {
     itemInput.style.borderColor = "#ccc";
     itemInput.style.marginBottom = "20px";

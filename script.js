@@ -1,5 +1,7 @@
 const itemForm = document.getElementById("item-form");
 const itemInput = document.getElementById("item-input");
+// Validate Input:
+const errorMessage = document.querySelector(".error-message");
 const itemList = document.getElementById("item-list");
 const clearButton = document.getElementById("clear");
 const filterItem = document.getElementById("filter");
@@ -18,14 +20,12 @@ const onAddItemSubmit = (e) => {
   e.preventDefault();
   const newItem = itemInput.value;
 
-  // Validate Input:
-  const errorMessage = document.querySelector(".error-message");
-
   if (newItem === "") {
     // alert("Please add an item");
     itemInput.style.borderColor = "#ff2200";
     itemInput.style.marginBottom = "0";
     errorMessage.style.display = "flex";
+    return;
   } else {
     itemInput.style.borderColor = "#ccc";
     itemInput.style.marginBottom = "20px";
@@ -159,6 +159,9 @@ const CheckUI = () => {
   if (item.length === 0) {
     filterItem.style.display = "none";
     clearButton.style.display = "none";
+    itemInput.style.borderColor = "#ccc";
+    itemInput.style.marginBottom = "20px";
+    errorMessage.style.display = "none";
   } else {
     filterItem.style.display = "block";
     clearButton.style.display = "block";

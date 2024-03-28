@@ -37,6 +37,19 @@ const onAddItemSubmit = (e) => {
     removeItemFromStorage(itemToEdit.textContent);
     itemToEdit.classList.remove("edit-mode");
     itemToEdit.remove();
+  } else {
+    if (checkIfItemExist(newItem)) {
+      itemInput.style.marginBottom = "0";
+      itemInput.style.border = "1px solid red";
+      errorMessage.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> The item already exists!`;
+      errorMessage.style.display = "flex";
+      return;
+    } else {
+      itemInput.style.borderColor = "#ccc";
+      itemInput.style.marginBottom = "20px";
+      errorMessage.style.display = "none";
+      errorMessage.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Please add an item`;
+    }
   }
 
   // Create item DOM element
@@ -103,6 +116,11 @@ const onClickItem = (e) => {
   } else {
     setItemToEdit(e.target);
   }
+};
+
+const checkIfItemExist = (item) => {
+  const itemsFromStorage = getItemsFromStorage();
+  return itemsFromStorage.includes(item);
 };
 
 const setItemToEdit = (item) => {

@@ -52,20 +52,6 @@ header h1 {
   outline: none;
 }
 
-.error-message {
-  color: #ff2200;
-  font-size: 0.875rem;
-  font-weight: 400;
-  margin: 5px 0 20px;
-  display: none;
-  align-items: center;
-  column-gap: 0.5rem;
-}
-
-.error-message > i {
-  font-size: 1rem;
-}
-
 .form-input-filter {
   margin-top: 20px;
   width: 100%;
@@ -130,19 +116,34 @@ header h1 {
   color: red;
 }
 
+/* validation messsages */
+.error-message {
+  color: #ff2200;
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin: 5px 0 20px;
+  display: none;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.error-message > i {
+  font-size: 1rem;
+}
+
 /* Items */
 
 .items {
   margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
 }
 
 .items li {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px 15px;
-  margin: 0 5px 20px;
   font-weight: 700;
   list-style: none;
   display: flex;

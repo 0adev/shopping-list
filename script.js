@@ -146,6 +146,10 @@ const clearAllItems = () => {
     itemList.removeChild(itemList.firstChild);
   }
 
+  if (clearButton) {
+    alert("Are you sure?");
+  }
+
   // Clear all items from local storage
   localStorage.removeItem("items");
 
